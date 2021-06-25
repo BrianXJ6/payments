@@ -12,7 +12,7 @@ class CreateOrdersTable extends Migration {
             $table->id();
             $table->unsignedBigInteger('payment_id')->unique();
             $table->enum('payment_type', ['credit_card']);
-            $table->enum('status', ['waiting']);
+            $table->enum('status', ['new', 'waiting', 'paid', 'active', 'unpaid', 'refunded', 'contested', 'canceled', 'settled', 'link', 'expired', 'up_to_date', 'finished']);
             $table->decimal('total', 8, 2);
 
             // Products
@@ -39,6 +39,8 @@ class CreateOrdersTable extends Migration {
             $table->unsignedTinyInteger('installments')->nullable()->default(null);
             $table->decimal('installment_value', 8, 2)->nullable()->default(null);
 
+            // Others
+            $table->dateTime('paid_at')->nullable()->default(null);
             $table->timestamps();
         });
     }

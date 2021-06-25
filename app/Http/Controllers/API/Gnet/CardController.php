@@ -6,7 +6,6 @@ use App\Models\Order;
 use Gerencianet\Gerencianet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Gerencianet\Exception\GerencianetException;
 
 class CardController extends Controller {
 
@@ -22,12 +21,12 @@ class CardController extends Controller {
 
         // Dados de cobrança
         $billingAddress = [
-            'zipcode' => $request->address['zip'],
-            'street' => $request->address['street'],
-            'number' => $request->address['number'],
+            'zipcode'      => $request->address['zip'],
+            'street'       => $request->address['street'],
+            'number'       => $request->address['number'],
             'neighborhood' => $request->address['district'],
-            'city' => $request->address['city'],
-            'state' => $request->address['state'],
+            'city'         => $request->address['city'],
+            'state'        => $request->address['state'],
         ];
 
         // Dados do pagamento
@@ -55,10 +54,11 @@ class CardController extends Controller {
 
             // Executando metodo de pagamento (one step)
             $pay_charge = $api->oneStep([], [
-                'items'   => $items,
-                'payment' => $payment,
+                'items'    => $items,
+                'payment'  => $payment,
                 'metadata' => array('notification_url' => url('api/payment/gnet/status')),
             ]);
+            if ($pay_charge['code'] != 200) return response()->json(['message' => $pay_charge['error_description']['message']], 422);
 
             // Criando pedido
             $order                       = new Order();
@@ -82,14 +82,9 @@ class CardController extends Controller {
             $order->installments         = $pay_charge['data']['installments'];
             $order->installment_value    = (float) $pay_charge['data']['installment_value'] / 100;
             $order->save();
-            return response()->json(true, 201);
-        } catch (GerencianetException $e) {
-            dd($e);
-            // dd($e->error);
-            // dd($e->errorDescription);
+            return response()->json([], 201);
         } catch (\Exception $e) {
-            dd($e);
-            // dd($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 }

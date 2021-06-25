@@ -25,14 +25,14 @@ class CallbackController extends Controller {
 
             // Obtendo status e identificação do pedido
             $lastNotification = $chargeNotification['data'][count($chargeNotification['data']) - 1];
-            $paid_at          = $lastNotification['created_at'];
+            $created_at       = $lastNotification['created_at'];
             $newStatus        = $lastNotification['status']['current'];
             $payment_id       = $lastNotification['identifiers']['charge_id'];
 
             // Atualizando o status do pedido
             $order          = Order::where('payment_id', $payment_id)->firstOrFail();
             $order->status  = $newStatus;
-            $order->paid_at = $paid_at;
+            if ($newStatus == 'paid' || $newStatus == 'settled') $order->paid_at = $created_at;
             $order->save();
             return response()->json([], 204);
         } catch (\Exception $e) {

@@ -11,8 +11,8 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['Accept'] = 'application/json';
 
 // Vue auto components
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./components/', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 // Vue single components
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);

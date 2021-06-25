@@ -67,7 +67,7 @@
                 </div>
             </fieldset>
             <fieldset class="border px-3 rounded mb-3">
-                <legend class="w-auto h5 font-weight-bold">End. de cobrança</legend>
+                <legend class="w-auto h5 font-weight-bold">Dados do cartão</legend>
                 <div class="form-row">
                     <div class="form-group col-sm-7">
                         <label for="paymentForm.card.number" class="m-0">Número do cartão</label>

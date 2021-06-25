@@ -61,26 +61,26 @@ class CardController extends Controller {
             if ($pay_charge['code'] != 200) return response()->json(['message' => $pay_charge['error_description']['message']], 422);
 
             // Criando pedido
-            $order                       = new Order();
-            $order->payment_id           = $pay_charge['data']['charge_id'];
-            $order->payment_type         = $pay_charge['data']['payment'];
-            $order->status               = $pay_charge['data']['status'];
-            $order->total                = (float) $pay_charge['data']['total'] / 100;
-            $order->products             = json_encode($items);
-            $order->user_email           = $request->user['email'];
-            $order->user_name            = $request->user['name'];
-            $order->user_document        = $request->user['cpf'];
-            $order->user_phone           = $request->user['phone'];
-            $order->user_birth           = '1990-12-10';
-            $order->address_zip          = $request->address['zip'];
-            $order->address_street       = $request->address['street'];
-            $order->address_district     = $request->address['district'];
-            $order->address_city         = $request->address['city'];
-            $order->address_state        = $request->address['state'];
-            $order->card_last_for_digits = substr($request->card['number'], -4);
-            $order->card_brand           = $request->card['brand'];
-            $order->installments         = $pay_charge['data']['installments'];
-            $order->installment_value    = (float) $pay_charge['data']['installment_value'] / 100;
+            $order                         = new Order();
+            $order->payment_id             = $pay_charge['data']['charge_id'];
+            $order->payment_type           = $pay_charge['data']['payment'];
+            $order->status                 = $pay_charge['data']['status'];
+            $order->total                  = (float) $pay_charge['data']['total'] / 100;
+            $order->products               = json_encode($items);
+            $order->user_email             = $request->user['email'];
+            $order->user_name              = $request->user['name'];
+            $order->user_document          = $request->user['cpf'];
+            $order->user_phone             = $request->user['phone'];
+            $order->user_birth             = '1990-12-10';
+            $order->address_zip            = $request->address['zip'];
+            $order->address_street         = $request->address['street'];
+            $order->address_district       = $request->address['district'];
+            $order->address_city           = $request->address['city'];
+            $order->address_state          = $request->address['state'];
+            $order->card_last_for_digits   = substr($request->card['number'], -4);
+            $order->card_brand             = $request->card['brand'];
+            $order->card_installments      = $pay_charge['data']['installments'];
+            $order->card_installment_value = (float) $pay_charge['data']['installment_value'] / 100;
             $order->save();
             return response()->json([], 201);
         } catch (\Exception $e) {

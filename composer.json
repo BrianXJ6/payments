@@ -5,6 +5,7 @@
     "keywords": [
         "laravel",
         "gateway",
+        "mercadopago",
         "gerencianet"
     ],
     "license": "MIT",

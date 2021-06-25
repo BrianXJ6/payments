@@ -25,16 +25,23 @@ class Order extends Model {
         'address_state',
         'card_last_for_digits',
         'card_brand',
-        'installments',
-        'installment_value',
+        'card_installments',
+        'card_installment_value',
+        'billet_barcode',
+        'billet_link',
+        'billet_pdf',
+        'paid_at',
+        'expire_at',
     ];
     protected $hidden   = ['payment_id'];
     protected $casts    = [
-        'payment_id'        => 'integer',
-        'total'             => 'decimal:2',
-        'products'          => 'array',
-        'user_birth'        => 'date',
-        'installments'      => 'integer',
-        'installment_value' => 'decimal:2',
+        'payment_id'             => 'integer',
+        'total'                  => 'decimal:2',
+        'products'               => 'array',
+        'user_birth'             => 'date',
+        'card_installments'      => 'integer',
+        'card_installment_value' => 'decimal:2',
+        'paid_at'                => 'datetime',
+        'expire_at'              => 'date',
     ];
 }

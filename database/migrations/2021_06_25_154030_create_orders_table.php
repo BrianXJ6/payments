@@ -11,7 +11,7 @@ class CreateOrdersTable extends Migration {
             // Important data
             $table->id();
             $table->unsignedBigInteger('payment_id')->unique();
-            $table->enum('payment_type', ['credit_card']);
+            $table->enum('payment_type', ['credit_card', 'banking_billet']);
             $table->enum('status', ['new', 'waiting', 'paid', 'active', 'unpaid', 'refunded', 'contested', 'canceled', 'settled', 'link', 'expired', 'up_to_date', 'finished']);
             $table->decimal('total', 8, 2);
 
@@ -36,11 +36,17 @@ class CreateOrdersTable extends Migration {
             // Card data
             $table->string('card_last_for_digits')->nullable()->default(null);
             $table->string('card_brand')->nullable()->default(null);
-            $table->unsignedTinyInteger('installments')->nullable()->default(null);
-            $table->decimal('installment_value', 8, 2)->nullable()->default(null);
+            $table->unsignedTinyInteger('card_installments')->nullable()->default(null);
+            $table->decimal('card_installment_value', 8, 2)->nullable()->default(null);
+
+            // Billet data
+            $table->string('billet_barcode')->nullable()->default(null);
+            $table->string('billet_link')->nullable()->default(null);
+            $table->string('billet_pdf')->nullable()->default(null);
 
             // Others
             $table->dateTime('paid_at')->nullable()->default(null);
+            $table->date('expire_at')->nullable()->default(null);
             $table->timestamps();
         });
     }

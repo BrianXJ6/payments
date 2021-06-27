@@ -31,6 +31,7 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="{{ route('gn.cart') }}">Pagamentos via cartão</a>
                                     <a class="dropdown-item" href="{{ route('gn.billet') }}">Pagamentos via boleto</a>
+                                    <a class="dropdown-item" href="{{ route('gn.pix') }}">Pagamentos via PIX</a>
                                 </div>
                             </li>
                         </ul>

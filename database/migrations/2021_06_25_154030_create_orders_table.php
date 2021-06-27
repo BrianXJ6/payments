@@ -11,8 +11,8 @@ class CreateOrdersTable extends Migration {
             // Important data
             $table->id();
             $table->unsignedBigInteger('payment_id')->unique();
-            $table->enum('payment_type', ['credit_card', 'banking_billet']);
-            $table->enum('status', ['new', 'waiting', 'paid', 'active', 'unpaid', 'refunded', 'contested', 'canceled', 'settled', 'link', 'expired', 'up_to_date', 'finished']);
+            $table->enum('payment_type', ['pix', 'credit_card', 'banking_billet']);
+            $table->enum('status', ['new', 'waiting', 'paid', 'active', 'unpaid', 'refunded', 'contested', 'canceled', 'settled', 'link', 'expired', 'up_to_date', 'finished', 'ATIVA', 'CONCLUIDA', 'REMOVIDA_PELO_USUARIO_RECEBEDOR', 'REMOVIDA_PELO_PSP']);
             $table->decimal('total', 8, 2);
 
             // Products
@@ -32,6 +32,11 @@ class CreateOrdersTable extends Migration {
             $table->string('address_district');
             $table->string('address_city');
             $table->string('address_state');
+
+            // PIX data
+            $table->string('txid')->nullable()->default(null);
+            $table->string('qrcode')->nullable()->default(null);
+            $table->text('imagemQrcode')->nullable()->default(null);
 
             // Card data
             $table->string('card_last_for_digits')->nullable()->default(null);

@@ -1,10 +1,11 @@
 {
-    "name": "gateway/gateway",
+    "name": "payments/payments",
     "type": "project",
-    "description": "Projeto em Laravel para configurações de gateway de pagamentos.",
+    "description": "Projeto em Laravel para integração com sistemas de pagamentos.",
     "keywords": [
         "laravel",
         "gateway",
+        "payments",
         "mercadopago",
         "gerencianet"
     ],

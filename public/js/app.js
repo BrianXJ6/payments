@@ -357,6 +357,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -374,7 +378,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       paymentForm: {
         product: {
           name: 'Produto teste',
-          price: '29.99'
+          price: '29.99',
+          qtd: 1
         },
         user: {
           email: 'email_cliente@servidor.com.br',
@@ -458,10 +463,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getInstallments: function getInstallments() {
       var _this3 = this;
 
-      var total = parseInt(this.paymentForm.product.price.replaceAll('.', ''));
+      var price = parseFloat(this.paymentForm.product.price);
+      var qtd = parseInt(this.paymentForm.product.qtd);
       var brand = this.paymentForm.card.brand;
-      if (!total || !brand || !this.gn) return;
-      this.gn.getInstallments(parseInt(this.paymentForm.product.price.replaceAll('.', '')), this.paymentForm.card.brand, function (error, response) {
+      if (!price || !qtd || !brand || !this.gn) return;
+      this.gn.getInstallments(Math.round(price * qtd * 100), this.paymentForm.card.brand, function (error, response) {
         if (error) alert(error.error_description);else _this3.installments = response.data.installments;
       });
     },
@@ -1525,7 +1531,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-sm-6" }, [
+            _c("div", { staticClass: "form-group col-sm-5" }, [
               _c(
                 "label",
                 {
@@ -1564,7 +1570,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "form-group col-sm-6" },
+              { staticClass: "form-group col-sm-4" },
               [
                 _c(
                   "label",
@@ -1590,6 +1596,38 @@ var render = function() {
                       _vm.$set(_vm.paymentForm.product, "price", $$v)
                     },
                     expression: "paymentForm.product.price"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group col-sm-3" },
+              [
+                _c(
+                  "label",
+                  {
+                    staticClass: "m-0",
+                    attrs: { for: "paymentForm.product.qtd" }
+                  },
+                  [_vm._v("Quantidade")]
+                ),
+                _vm._v(" "),
+                _c("vue-numeric", {
+                  staticClass: "form-control form-control-sm",
+                  attrs: {
+                    id: "paymentForm.product.qtd",
+                    "output-type": "String"
+                  },
+                  on: { change: _vm.getInstallments },
+                  model: {
+                    value: _vm.paymentForm.product.qtd,
+                    callback: function($$v) {
+                      _vm.$set(_vm.paymentForm.product, "qtd", $$v)
+                    },
+                    expression: "paymentForm.product.qtd"
                   }
                 })
               ],

@@ -43,6 +43,7 @@ class CreateOrdersTable extends Migration {
             $table->string('card_brand')->nullable()->default(null);
             $table->unsignedTinyInteger('card_installments')->nullable()->default(null);
             $table->decimal('card_installment_value', 8, 2)->nullable()->default(null);
+            $table->decimal('card_charge_total', 8, 2)->nullable()->default(null);
 
             // Billet data
             $table->string('billet_barcode')->nullable()->default(null);

@@ -58,7 +58,6 @@
                 <span>Integração com sistemas de pagamentos</span>
             </div>
         </footer>
-        <vue-snotify></vue-snotify>
     </div>
     @stack('scripts')
 </body>

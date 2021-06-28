@@ -39,10 +39,12 @@ class CardController extends Controller {
             ]
         ];
 
-        // Produtos referente a compra
+        // Produtos referente a compra e total do pedido.
+        $total_pedido = 0;
         $items = [
-            ['name' => $request->product['name'], 'amount' => 1, 'value' => intval((float) $request->product['price'] * 100)]
+            ['name' => $request->product['name'], 'amount' => (int) $request->product['qtd'], 'value' => intval((float) $request->product['price'] * 100)],
         ];
+        foreach ($items as $item) $total_pedido += (float) (($item['value'] / 100) * $item['amount']);
 
         try {
             // Iniciando API Gerencianet
@@ -65,7 +67,7 @@ class CardController extends Controller {
             $order->payment_id             = $pay_charge['data']['charge_id'];
             $order->payment_type           = $pay_charge['data']['payment'];
             $order->status                 = $pay_charge['data']['status'];
-            $order->total                  = (float) $pay_charge['data']['total'] / 100;
+            $order->total                  = $total_pedido;
             $order->products               = json_encode($items);
             $order->user_email             = $request->user['email'];
             $order->user_name              = $request->user['name'];
@@ -81,6 +83,7 @@ class CardController extends Controller {
             $order->card_brand             = $request->card['brand'];
             $order->card_installments      = $pay_charge['data']['installments'];
             $order->card_installment_value = (float) $pay_charge['data']['installment_value'] / 100;
+            $order->card_charge_total      = (float) $pay_charge['data']['total'] / 100;
             $order->save();
             return response()->json([], 201);
         } catch (\Exception $e) {

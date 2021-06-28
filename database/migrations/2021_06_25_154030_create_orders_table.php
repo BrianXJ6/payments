@@ -54,6 +54,7 @@ class CreateOrdersTable extends Migration {
             $table->dateTime('paid_at')->nullable()->default(null);
             $table->date('expire_at')->nullable()->default(null);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

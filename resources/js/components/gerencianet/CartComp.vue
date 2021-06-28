@@ -139,7 +139,7 @@
                     product: {
                         name: 'Produto teste',
                         price: '29.99',
-                        qtd: 1,
+                        qtd: '1',
                     },
                     user: {
                         email: 'email_cliente@servidor.com.br',

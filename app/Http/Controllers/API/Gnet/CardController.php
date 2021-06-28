@@ -58,7 +58,7 @@ class CardController extends Controller {
             $pay_charge = $api->oneStep([], [
                 'items'    => $items,
                 'payment'  => $payment,
-                'metadata' => array('notification_url' => url('api/payment/gnet/status')),
+                'metadata' => array('notification_url' => config('gateway.gnet_webhook')),
             ]);
             if ($pay_charge['code'] != 200) return response()->json(['message' => $pay_charge['error_description']['message']], 422);
 

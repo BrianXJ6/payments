@@ -1,6 +1,9 @@
 <?php
 
 return [
+
+    'gnet_webhook' => env('GNET_WEBHOOK', null),
+
     /*
     |--------------------------------------------------------------------------
     | Cliente ID / Cliente Secret

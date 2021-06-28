@@ -16,7 +16,7 @@ class CallbackController extends Controller {
             $api = new Gerencianet([
                 'client_id'     => config('gateway.gnet_client_id'),
                 'client_secret' => config('gateway.gnet_client_secret'),
-                'sandbox'       => true,
+                'sandbox'       => config('gateway.gnet_sandbox'),
             ]);
 
             // Executando consulta de status (notification)
@@ -34,7 +34,7 @@ class CallbackController extends Controller {
             $order->status  = $newStatus;
             if ($newStatus == 'paid' || $newStatus == 'settled') $order->paid_at = $created_at;
             $order->save();
-            return response()->json([], 204);
+            return response()->json(true, 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }

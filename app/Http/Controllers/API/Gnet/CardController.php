@@ -51,7 +51,7 @@ class CardController extends Controller {
             $api = new Gerencianet([
                 'client_id'     => config('gateway.gnet_client_id'),
                 'client_secret' => config('gateway.gnet_client_secret'),
-                'sandbox'       => true,
+                'sandbox'       => config('gateway.gnet_sandbox'),
             ]);
 
             // Executando metodo de pagamento (one step)

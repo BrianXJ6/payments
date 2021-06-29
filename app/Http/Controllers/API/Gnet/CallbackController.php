@@ -11,22 +11,7 @@ class CallbackController extends Controller {
 
     public function __invoke(Request $request) {
         $request->validate(['notification' => ['nullable', 'string']]);
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://tls.testegerencianet.com.br/");
-        curl_setopt($ch, CURLOPT_SSLVERSION, 6);
-        curl_exec($ch);
-        echo "\n";
-
-        if ($err = curl_error($ch)) {
-            var_dump($err);
-            echo "DEBUG INFORMATION:\n###########\n";
-            echo "CURL VERSION:\n";
-            echo json_encode(curl_version(), JSON_PRETTY_PRINT);
-        }
-
         if (!$request->notification) return response()->json([]);
-
         try {
             // Iniciando API Gerencianet
             $api = new Gerencianet([

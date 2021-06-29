@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model {
+
+    use SoftDeletes;
 
     protected $fillable = [
         'payment_id',
@@ -30,6 +33,7 @@ class Order extends Model {
         'card_brand',
         'card_installments',
         'card_installment_value',
+        'card_charge_total',
         'billet_barcode',
         'billet_link',
         'billet_pdf',
@@ -44,6 +48,7 @@ class Order extends Model {
         'user_birth'             => 'date',
         'card_installments'      => 'integer',
         'card_installment_value' => 'decimal:2',
+        'card_charge_total'      => 'decimal:2',
         'paid_at'                => 'datetime',
         'expire_at'              => 'date',
     ];

@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('subtitle', 'Início')
+@section('description', 'Descrição da tela Início')
+@section('keywords', 'Keywords da tela Início')
+@section('cover', asset(''))
 @section('content')
 <div class="container my-5">
     <h1>FODASE</h1>

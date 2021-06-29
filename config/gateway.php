@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Cliente ID / Cliente Secret
@@ -10,6 +11,18 @@ return [
     | tenha ciência de usar a chave correta para ambiente de Produção ou Homologação (teste)
     |
     */
-    'gnet_client_id'     => env('GNET_CLIENT_ID', null),
-    'gnet_client_secret' => env('GNET_CLIENT_SECRET', null),
+    'gnet_client_id'     => env('GNET_CLIENT_ID', ''),
+    'gnet_client_secret' => env('GNET_CLIENT_SECRET', ''),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gerencianet config
+    |--------------------------------------------------------------------------
+    |
+    | Informe a API para receber disparo do webhook referente a atualização de estatus de transações;
+    | Informe o ambiente sandbox com verdadeiro ou falso
+    |
+    */
+    'gnet_webhook' => env('GNET_WEBHOOK', ''),
+    'gnet_sandbox' => env('GNET_SANDBOX', true),
 ];

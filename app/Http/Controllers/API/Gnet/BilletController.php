@@ -45,7 +45,7 @@ class BilletController extends Controller {
 
         // Produtos referente a compra
         $items = [
-            ['name' => $request->product['name'], 'amount' => 1, 'value' => intval((float) $request->product['price'] * 100)]
+            ['name' => $request->product['name'], 'amount' => (int) $request->product['qtd'], 'value' => intval((float) $request->product['price'] * 100)],
         ];
 
         try {
@@ -53,14 +53,14 @@ class BilletController extends Controller {
             $api = new Gerencianet([
                 'client_id'     => config('gateway.gnet_client_id'),
                 'client_secret' => config('gateway.gnet_client_secret'),
-                'sandbox'       => true
+                'sandbox'       => config('gateway.gnet_sandbox')
             ]);
 
             // Executando metodo de pagamento (one step)
             $pay_charge = $api->oneStep([], [
                 'items'    => $items,
                 'payment'  => $payment,
-                'metadata' => array('notification_url' => url('api/payment/gnet/status')),
+                'metadata' => array('notification_url' => config('gateway.gnet_webhook')),
             ]);
             if ($pay_charge['code'] != 200) return response()->json(['message' => $pay_charge['error_description']['message']], 422);
 

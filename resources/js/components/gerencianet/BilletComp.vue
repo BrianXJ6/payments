@@ -1,18 +1,22 @@
 <template>
     <div class="container my-5">
-        <h1>Pagamentos via cartão</h1>
+        <h1>Pagamentos via Boleto</h1>
         <hr>
         <form @submit.prevent="sendPayment">
             <fieldset class="border px-3 rounded mb-3">
                 <legend class="w-auto h5 font-weight-bold">Dados da compra</legend>
                 <div class="form-row">
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-5">
                         <label for="paymentForm.product.name" class="m-0">Nome do produto</label>
                         <input id="paymentForm.product.name" class="form-control form-control-sm" type="text" v-model="paymentForm.product.name">
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-4">
                         <label for="paymentForm.product.price" class="m-0">Preço do produto</label>
                         <vue-numeric id="paymentForm.product.price" class="form-control form-control-sm" currency="R$" output-type="String" :precision="2" v-model="paymentForm.product.price"></vue-numeric>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="paymentForm.product.qtd" class="m-0">Quantidade</label>
+                        <vue-numeric id="paymentForm.product.qtd" class="form-control form-control-sm" output-type="String" v-model="paymentForm.product.qtd"></vue-numeric>
                     </div>
                 </div>
             </fieldset>
@@ -107,6 +111,7 @@
                     product: {
                         name: 'Produto teste boleto',
                         price: '29.99',
+                        qtd: '1',
                     },
                     user: {
                         email: 'email_cliente@servidor.com.br',

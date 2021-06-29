@@ -10,7 +10,8 @@ use App\Http\Controllers\Controller;
 class CallbackController extends Controller {
 
     public function __invoke(Request $request) {
-        $request->validate(['notification' => ['required', 'string']]);
+        $request->validate(['notification' => ['nullable', 'string']]);
+        if (!$request->notification) return response()->json([]);
         try {
             // Iniciando API Gerencianet
             $api = new Gerencianet([

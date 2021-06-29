@@ -5,7 +5,7 @@
 @section('cover', asset(''))
 @section('content')
 <div class="container my-5">
-    <h1>FODASE</h1>
+    <h1>Início</h1>
     <hr>
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quam, maxime error maiores, delectus

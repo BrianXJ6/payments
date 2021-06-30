@@ -22,8 +22,8 @@ class PixController extends Controller {
             $api = Gerencianet::getInstance([
                 'client_id'     => config('gateway.gnet_client_id'),
                 'client_secret' => config('gateway.gnet_client_secret'),
-                'pix_cert'      => base_path('') . '/homologacao-305206-glpets.pem', // caminho do certificado
-                'sandbox'       => true,
+                'pix_cert'      => base_path('') . config('gateway.gnet_pix_cert'),
+                'sandbox'       => config('gateway.gnet_sandbox'),
             ]);
 
             // Executando metodo de pagamento via PIX

@@ -12,10 +12,8 @@ class CallbackController extends Controller {
 
     public function __invoke(Request $request) {
         $request->validate([
-            'notification'     => ['nullable', 'string'],
-            'pix'              => ['nullable', 'array'],
-            'pix.*.endToEndId' => ['required', 'string'],
-            'pix.*.txid'       => ['required', 'string'],
+            'notification' => ['nullable', 'string'],
+            'pix'          => ['nullable', 'array'],
         ]);
 
         // Validando servidores GNET.
@@ -51,10 +49,6 @@ class CallbackController extends Controller {
 
             // Obtendo o ultimo registro de pagamento via PIX
             $lastPix = Arr::last($pix['pix']);
-
-            // Validando registro com request
-            // if (count(array_diff($pixRequest, $lastPix))) return response()->json(['message' => 'Não foi possível atender essa solicitação'], 400);
-            // if (count(array_diff($pixRequest, $lastPix))) throw new \Exception('Não foi possível atender essa solicitação');
 
             // Atualizando informação do pedido
             $order               = Order::where('txid', $pix['txid'])->firstOrFail();

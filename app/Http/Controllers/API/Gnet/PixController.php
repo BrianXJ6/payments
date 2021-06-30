@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\Gnet;
 
 use App\Models\Order;
-// use Gerencianet\Auth;
 use Illuminate\Http\Request;
 use Gerencianet\Gerencianet;
 use App\Http\Controllers\Controller;
@@ -11,37 +10,27 @@ use App\Http\Controllers\Controller;
 class PixController extends Controller {
 
     public function __invoke(Request $request) {
-        // Produtos referente a compra
+        // Produtos referente a compra e total do pedido.
+        $total_pedido = 0;
         $items = [
-            ['name' => $request->product['name'], 'amount' => 1, 'value' => intval((float) $request->product['price'] * 100)]
+            ['name' => $request->product['name'], 'amount' => (int) $request->product['qtd'], 'value' => intval((float) $request->product['price'] * 100)],
         ];
+        foreach ($items as $item) $total_pedido += (float) (($item['value'] / 100) * $item['amount']);
 
         try {
-            //generate Access Token
-            // $auth = new Auth([
-            //     'client_id'     => config('gateway.gnet_client_id'),
-            //     'client_secret' => config('gateway.gnet_client_secret'),
-            //     'pix_cert'      => base_path('') . '/producao-305206-glpets.pem', // caminho do certificado
-            // ]);
-            // $auth->authorize();
-
-            // dd($auth);
-
             // Iniciando API Gerencianet
             $api = Gerencianet::getInstance([
-                'client_id'        => 'Client_Id_abfae467f76613079ea5493151fc7c862036c9fa',
-                'client_secret'    => 'Client_Secret_47aa6e0136e35b2becea163548f3d073f1f201bb',
-                // 'client_id'     => config('gateway.gnet_client_id'),
-                // 'client_secret' => config('gateway.gnet_client_secret'),
-                'pix_cert'         => base_path('') . '/producao-305206-glpets.pem', // caminho do certificado
-                // 'sandbox'       => false,
+                'client_id'     => config('gateway.gnet_client_id'),
+                'client_secret' => config('gateway.gnet_client_secret'),
+                'pix_cert'      => base_path('') . '/homologacao-305206-glpets.pem', // caminho do certificado
+                'sandbox'       => true,
             ]);
 
             // Executando metodo de pagamento via PIX
             $pix = $api->pixCreateImmediateCharge([], [
                 'calendario'         => ['expiracao' => 86400], // 24 horas em segundos
-                'valor'              => ['original' => $request->product['price']],
-                'chave'              => '+5581997160910', // Chave pix da conta Gerencianet do recebedor
+                'valor'              => ['original' => (string) $total_pedido],
+                'chave'              => '5581997160910', // Chave pix da conta Gerencianet do recebedor
                 'solicitacaoPagador' => 'Informe o número ou identificador do pedido.',
             ]);
             if (!isset($pix['txid'])) return response()->json(['message' => $pix['mensagem']], 422);
@@ -54,7 +43,7 @@ class PixController extends Controller {
             $order->payment_id       = $pix['loc']['id'];
             $order->payment_type     = 'pix';
             $order->status           = $pix['status'];
-            $order->total            = (float) $pix['valor']['original'];
+            $order->total            = $total_pedido;
             $order->products         = json_encode($items);
             $order->user_email       = $request->user['email'];
             $order->user_name        = $request->user['name'];

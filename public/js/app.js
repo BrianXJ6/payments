@@ -610,6 +610,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -630,7 +634,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       paymentForm: {
         product: {
           name: 'Produto teste PIX',
-          price: '00.01'
+          price: '00.01',
+          qtd: '1'
         },
         user: {
           email: 'brianferreira15@hotmail.com',
@@ -2384,7 +2389,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-sm-6" }, [
+            _c("div", { staticClass: "form-group col-sm-5" }, [
               _c(
                 "label",
                 {
@@ -2423,7 +2428,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "form-group col-sm-6" },
+              { staticClass: "form-group col-sm-4" },
               [
                 _c(
                   "label",
@@ -2448,6 +2453,37 @@ var render = function() {
                       _vm.$set(_vm.paymentForm.product, "price", $$v)
                     },
                     expression: "paymentForm.product.price"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group col-sm-3" },
+              [
+                _c(
+                  "label",
+                  {
+                    staticClass: "m-0",
+                    attrs: { for: "paymentForm.product.qtd" }
+                  },
+                  [_vm._v("Quantidade")]
+                ),
+                _vm._v(" "),
+                _c("vue-numeric", {
+                  staticClass: "form-control form-control-sm",
+                  attrs: {
+                    id: "paymentForm.product.qtd",
+                    "output-type": "String"
+                  },
+                  model: {
+                    value: _vm.paymentForm.product.qtd,
+                    callback: function($$v) {
+                      _vm.$set(_vm.paymentForm.product, "qtd", $$v)
+                    },
+                    expression: "paymentForm.product.qtd"
                   }
                 })
               ],

@@ -28,9 +28,9 @@ class PixController extends Controller {
 
             // Executando metodo de pagamento via PIX
             $pix = $api->pixCreateImmediateCharge([], [
+                'chave'              => config('gateway.gnet_pix_key'),
                 'calendario'         => ['expiracao' => 86400], // 24 horas em segundos
                 'valor'              => ['original' => (string) $total_pedido],
-                'chave'              => '5581997160910', // Chave pix da conta Gerencianet do recebedor
                 'solicitacaoPagador' => 'Informe o número ou identificador do pedido.',
             ]);
             if (!isset($pix['txid'])) return response()->json(['message' => $pix['mensagem']], 422);

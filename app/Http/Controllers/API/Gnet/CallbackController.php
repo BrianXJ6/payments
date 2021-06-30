@@ -10,7 +10,16 @@ use App\Http\Controllers\Controller;
 class CallbackController extends Controller {
 
     public function __invoke(Request $request) {
-        $request->validate(['notification' => ['required', 'string']]);
+        $request->validate(['notification' => ['nullable', 'string']]);
+
+        // Validando servidores GNET.
+        if (strcmp($request->ip(), config('gateway.gnet_ip')) !== 0)
+            return response()->json(['message' => 'Ação não autorizada!'], 422);
+
+        // Confirmação de resposta caso não seja uma notificação de pagamento.
+        if (!$request->notification) return response()->json();
+
+        // Processando callback...
         try {
             // Iniciando API Gerencianet
             $api = new Gerencianet([

@@ -54,7 +54,7 @@ class CallbackController extends Controller {
 
             // Validando registro com request
             // if (count(array_diff($pixRequest, $lastPix))) return response()->json(['message' => 'Não foi possível atender essa solicitação'], 400);
-            if (count(array_diff($pixRequest, $lastPix))) throw new \Exception('Não foi possível atender essa solicitação');
+            // if (count(array_diff($pixRequest, $lastPix))) throw new \Exception('Não foi possível atender essa solicitação');
 
             // Atualizando informação do pedido
             $order               = Order::where('txid', $pix['txid'])->firstOrFail();

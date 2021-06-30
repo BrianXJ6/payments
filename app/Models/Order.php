@@ -14,6 +14,7 @@ class Order extends Model {
         'payment_type',
         'status',
         'total',
+        'total_paid',
         'products',
         'user_email',
         'user_name',
@@ -44,6 +45,7 @@ class Order extends Model {
     protected $casts    = [
         'payment_id'             => 'integer',
         'total'                  => 'decimal:2',
+        'total_paid'             => 'decimal:2',
         'products'               => 'array',
         'user_birth'             => 'date',
         'card_installments'      => 'integer',

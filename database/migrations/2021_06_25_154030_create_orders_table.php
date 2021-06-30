@@ -14,6 +14,7 @@ class CreateOrdersTable extends Migration {
             $table->enum('payment_type', ['pix', 'credit_card', 'banking_billet']);
             $table->enum('status', ['new', 'waiting', 'paid', 'active', 'unpaid', 'refunded', 'contested', 'canceled', 'settled', 'link', 'expired', 'up_to_date', 'finished', 'ATIVA', 'CONCLUIDA', 'REMOVIDA_PELO_USUARIO_RECEBEDOR', 'REMOVIDA_PELO_PSP']);
             $table->decimal('total', 8, 2);
+            $table->decimal('total_paid', 8, 2)->nullable()->default(null);
 
             // Products
             $table->string('products')->nullable()->default(null);

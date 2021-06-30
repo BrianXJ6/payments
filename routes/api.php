@@ -11,5 +11,6 @@ Route::prefix('payment/gnet')->group(function () {
     Route::post('pix', PixController::class);
     Route::post('card', CardController::class);
     Route::post('billet', BilletController::class);
-    Route::post('status', CallbackController::class);
+    Route::post('status', CallbackController::class); // Calbacks para transações normais.
+    Route::post('status/pix', CallbackController::class); // Calbacks para PIX.
 });

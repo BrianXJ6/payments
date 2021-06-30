@@ -19,8 +19,8 @@ class CallbackController extends Controller {
         ]);
 
         // Validando servidores GNET.
-        // if (config('gateway.gnet_sandbox') === false && strcmp($request->ip(), config('gateway.gnet_ip')) !== 0)
-        // return response()->json(['message' => 'Ação não autorizada!'], 422);
+        if (config('gateway.gnet_sandbox') === false && strcmp($request->ip(), config('gateway.gnet_ip')) !== 0)
+            return response()->json(['message' => 'Ação não autorizada!'], 422);
 
         // Processar callback API PIX
         if ($request->pix) return $this->cbPix($request->pix);

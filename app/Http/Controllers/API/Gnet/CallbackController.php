@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 class CallbackController extends Controller {
 
     public function __invoke(Request $request) {
+
         $request->validate([
             'notification' => ['nullable', 'string'],
             'pix'          => ['nullable', 'array'],
@@ -66,6 +67,7 @@ class CallbackController extends Controller {
     }
 
     protected function cbGnet($notification) {
+
         try {
             // Iniciando API Gerencianet
             $api = new Gerencianet([
